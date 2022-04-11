@@ -29,7 +29,7 @@ export const BALANCER_NETWORK_CONFIG: Record<Network, BalancerNetworkConfig> = {
             subgraph:
                 // 'https://graph-node1.starbank.finance/subgraphs/name/starbank-finance/balancer-v2',
                 // 'https://graph-node1.starbank.finance/subgraphs/name/starbank-finance/balancer-v2-new',
-                'http://graph.starbank.finance/subgraphs/name/starbank-finance/balancer-v2',
+                'http://graph.starbank.finance:9000/subgraphs/name/starbank-finance/balancer-v2',
         },
         pools: {
             // bbausd: {
