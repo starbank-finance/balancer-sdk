@@ -13,14 +13,15 @@ export const BALANCER_NETWORK_CONFIG: Record<Network, BalancerNetworkConfig> = {
                 // vault: '0x7Cd0C38850A3AaBb773311AAAADA3444D31DCE03',
                 vault: '0xB05E81918C00D5a327c3AF5372b9C07528E9400E',
                 // multicall: '0xeB93D9EDDCb7476aF0c415E5a6d429454f85833A',
-                multicall: '0xB97c1132477464d00CC220A825f8b1f1243f9356',
+                // multicall: '0xB97c1132477464d00CC220A825f8b1f1243f9356',
+                multicall: '0x0b2D3DdDBE272AEd78877802F970C162ae263fca',
             },
             tokens: {
                 wrappedNativeAsset:
                     '0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720', //WASTR
                 // lbpRaisingTokens: [
                 //     '0x6De33698e9e9b787e09d3Bd7771ef63557E148bb', // DAI
-                //     '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98', // USDC 
+                //     '0x6a2d262D56735DbA19Dd70682B39F6bE9a931D98', // USDC
                 //     '0xAeaaf0e2c81Af264101B9129C00F4440cCF0F720', // WASTR
                 // ],
             },
