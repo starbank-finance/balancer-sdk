@@ -30,6 +30,8 @@ export type AmpUpdate = {
 };
 
 export type AmpUpdate_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   endAmp?: InputMaybe<Scalars['BigInt']>;
   endAmp_gt?: InputMaybe<Scalars['BigInt']>;
   endAmp_gte?: InputMaybe<Scalars['BigInt']>;
@@ -143,6 +145,8 @@ export type BalancerSnapshot = {
 };
 
 export type BalancerSnapshot_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -233,6 +237,8 @@ export enum BalancerSnapshot_OrderBy {
 }
 
 export type Balancer_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -293,7 +299,11 @@ export enum Balancer_OrderBy {
   TotalSwapVolume = 'totalSwapVolume'
 }
 
-/** The block at which the query should be executed. */
+
+export type BlockChangedFilter = {
+  number_gte: Scalars['Int'];
+};
+
 export type Block_Height = {
   /** Value containing a block hash */
   hash?: InputMaybe<Scalars['Bytes']>;
@@ -321,6 +331,8 @@ export type GradualWeightUpdate = {
 };
 
 export type GradualWeightUpdate_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   endTimestamp?: InputMaybe<Scalars['BigInt']>;
   endTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
   endTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
@@ -412,6 +424,8 @@ export type Investment = {
 };
 
 export type Investment_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   amount?: InputMaybe<Scalars['BigDecimal']>;
   amount_gt?: InputMaybe<Scalars['BigDecimal']>;
   amount_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -485,6 +499,8 @@ export type JoinExit = {
 };
 
 export type JoinExit_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   amounts?: InputMaybe<Array<Scalars['BigDecimal']>>;
   amounts_contains?: InputMaybe<Array<Scalars['BigDecimal']>>;
   amounts_contains_nocase?: InputMaybe<Array<Scalars['BigDecimal']>>;
@@ -587,6 +603,8 @@ export type LatestPrice = {
 };
 
 export type LatestPrice_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   asset?: InputMaybe<Scalars['Bytes']>;
   asset_contains?: InputMaybe<Scalars['Bytes']>;
   asset_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -767,6 +785,8 @@ export type PoolHistoricalLiquidity = {
 };
 
 export type PoolHistoricalLiquidity_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   block?: InputMaybe<Scalars['BigInt']>;
   block_gt?: InputMaybe<Scalars['BigInt']>;
   block_gte?: InputMaybe<Scalars['BigInt']>;
@@ -854,6 +874,8 @@ export type PoolShare = {
 };
 
 export type PoolShare_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   balance?: InputMaybe<Scalars['BigDecimal']>;
   balance_gt?: InputMaybe<Scalars['BigDecimal']>;
   balance_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -932,6 +954,8 @@ export type PoolSnapshot = {
 };
 
 export type PoolSnapshot_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   amounts?: InputMaybe<Array<Scalars['BigDecimal']>>;
   amounts_contains?: InputMaybe<Array<Scalars['BigDecimal']>>;
   amounts_contains_nocase?: InputMaybe<Array<Scalars['BigDecimal']>>;
@@ -1045,6 +1069,8 @@ export type PoolTokenInvestmentsArgs = {
 };
 
 export type PoolToken_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   address?: InputMaybe<Scalars['String']>;
   address_contains?: InputMaybe<Scalars['String']>;
   address_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -1211,6 +1237,8 @@ export enum PoolToken_OrderBy {
 }
 
 export type Pool_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   address?: InputMaybe<Scalars['Bytes']>;
   address_contains?: InputMaybe<Scalars['Bytes']>;
   address_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1544,6 +1572,8 @@ export type PriceRateProvider = {
 };
 
 export type PriceRateProvider_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   address?: InputMaybe<Scalars['Bytes']>;
   address_contains?: InputMaybe<Scalars['Bytes']>;
   address_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2522,6 +2552,8 @@ export type Swap = {
 };
 
 export type Swap_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   caller?: InputMaybe<Scalars['Bytes']>;
   caller_contains?: InputMaybe<Scalars['Bytes']>;
   caller_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2703,6 +2735,8 @@ export type TokenPrice = {
 };
 
 export type TokenPrice_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   amount?: InputMaybe<Scalars['BigDecimal']>;
   amount_gt?: InputMaybe<Scalars['BigDecimal']>;
   amount_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -2801,6 +2835,8 @@ export type TokenSnapshot = {
 };
 
 export type TokenSnapshot_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -2891,6 +2927,8 @@ export enum TokenSnapshot_OrderBy {
 }
 
 export type Token_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   address?: InputMaybe<Scalars['String']>;
   address_contains?: InputMaybe<Scalars['String']>;
   address_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -3063,6 +3101,8 @@ export type TradePairSnapshot = {
 };
 
 export type TradePairSnapshot_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -3126,6 +3166,8 @@ export enum TradePairSnapshot_OrderBy {
 }
 
 export type TradePair_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -3244,6 +3286,8 @@ export type UserInternalBalance = {
 };
 
 export type UserInternalBalance_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   balance?: InputMaybe<Scalars['BigDecimal']>;
   balance_gt?: InputMaybe<Scalars['BigDecimal']>;
   balance_gte?: InputMaybe<Scalars['BigDecimal']>;
@@ -3296,6 +3340,8 @@ export enum UserInternalBalance_OrderBy {
 }
 
 export type User_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -3355,7 +3401,9 @@ export type PoolsQueryVariables = Exact<{
 }>;
 
 
-export type PoolsQuery = { __typename?: 'Query', pools: Array<{ __typename?: 'Pool', id: string, address: string, poolType?: string | null, symbol?: string | null, name?: string | null, swapFee: string, totalWeight?: string | null, totalSwapVolume: string, totalSwapFee: string, totalLiquidity: string, totalShares: string, swapsCount: string, holdersCount: string, tokensList: Array<string>, amp?: string | null, expiryTime?: string | null, unitSeconds?: string | null, principalToken?: string | null, baseToken?: string | null, swapEnabled: boolean, wrappedIndex?: number | null, mainIndex?: number | null, lowerTarget?: string | null, upperTarget?: string | null, tokens?: Array<{ __typename?: 'PoolToken', id: string, symbol: string, name: string, decimals: number, address: string, balance: string, invested: string, weight?: string | null, priceRate: string }> | null }> };
+
+export type PoolsQuery = { __typename?: 'Query', pool0: Array<{ __typename?: 'Pool', id: string, address: string, poolType?: string | null, symbol?: string | null, name?: string | null, swapFee: string, totalWeight?: string | null, totalSwapVolume: string, totalSwapFee: string, totalLiquidity: string, totalShares: string, swapsCount: string, holdersCount: string, tokensList: Array<string>, amp?: string | null, expiryTime?: string | null, unitSeconds?: string | null, principalToken?: string | null, baseToken?: string | null, swapEnabled: boolean, wrappedIndex?: number | null, mainIndex?: number | null, lowerTarget?: string | null, upperTarget?: string | null, tokens?: Array<{ __typename?: 'PoolToken', id: string, symbol: string, name: string, decimals: number, address: string, balance: string, invested: string, weight?: string | null, priceRate: string }> | null }>, pool1000: Array<{ __typename?: 'Pool', id: string, address: string, poolType?: string | null, symbol?: string | null, name?: string | null, swapFee: string, totalWeight?: string | null, totalSwapVolume: string, totalSwapFee: string, totalLiquidity: string, totalShares: string, swapsCount: string, holdersCount: string, tokensList: Array<string>, amp?: string | null, expiryTime?: string | null, unitSeconds?: string | null, principalToken?: string | null, baseToken?: string | null, swapEnabled: boolean, wrappedIndex?: number | null, mainIndex?: number | null, lowerTarget?: string | null, upperTarget?: string | null, tokens?: Array<{ __typename?: 'PoolToken', id: string, symbol: string, name: string, decimals: number, address: string, balance: string, invested: string, weight?: string | null, priceRate: string }> | null }> };
+
 
 export type PoolQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -3652,9 +3700,18 @@ export const SubgraphUserFragmentDoc = gql`
     `;
 export const PoolsDocument = gql`
     query Pools($skip: Int, $first: Int, $orderBy: Pool_orderBy, $orderDirection: OrderDirection, $where: Pool_filter, $block: Block_height) {
-  pools(
-    skip: $skip
-    first: $first
+  pool0: pools(
+    first: 1000
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+    where: $where
+    block: $block
+  ) {
+    ...SubgraphPool
+  }
+  pool1000: pools(
+    skip: 1000
+    first: 1000
     orderBy: $orderBy
     orderDirection: $orderDirection
     where: $where

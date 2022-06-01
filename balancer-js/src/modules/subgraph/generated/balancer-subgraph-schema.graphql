@@ -22,6 +22,8 @@ type AmpUpdate {
 }
 
 input AmpUpdate_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   endAmp: BigInt
   endAmp_gt: BigInt
   endAmp_gte: BigInt
@@ -124,6 +126,8 @@ type BalancerSnapshot {
 }
 
 input BalancerSnapshot_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   id: ID
   id_gt: ID
   id_gte: ID
@@ -214,6 +218,8 @@ enum BalancerSnapshot_orderBy {
 }
 
 input Balancer_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   id: ID
   id_gt: ID
   id_gte: ID
@@ -278,7 +284,11 @@ scalar BigDecimal
 
 scalar BigInt
 
-"""The block at which the query should be executed."""
+
+input BlockChangedFilter {
+  number_gte: Int!
+}
+
 input Block_height {
   """Value containing a block hash"""
   hash: Bytes
@@ -309,6 +319,8 @@ type GradualWeightUpdate {
 }
 
 input GradualWeightUpdate_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   endTimestamp: BigInt
   endTimestamp_gt: BigInt
   endTimestamp_gte: BigInt
@@ -399,6 +411,8 @@ type Investment {
 }
 
 input Investment_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   amount: BigDecimal
   amount_gt: BigDecimal
   amount_gte: BigDecimal
@@ -471,6 +485,8 @@ type JoinExit {
 }
 
 input JoinExit_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   amounts: [BigDecimal!]
   amounts_contains: [BigDecimal!]
   amounts_contains_nocase: [BigDecimal!]
@@ -572,6 +588,8 @@ type LatestPrice {
 }
 
 input LatestPrice_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   asset: Bytes
   asset_contains: Bytes
   asset_in: [Bytes!]
@@ -696,6 +714,8 @@ type PoolHistoricalLiquidity {
 }
 
 input PoolHistoricalLiquidity_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   block: BigInt
   block_gt: BigInt
   block_gte: BigInt
@@ -782,6 +802,8 @@ type PoolShare {
 }
 
 input PoolShare_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   balance: BigDecimal
   balance_gt: BigDecimal
   balance_gte: BigDecimal
@@ -859,6 +881,8 @@ type PoolSnapshot {
 }
 
 input PoolSnapshot_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   amounts: [BigDecimal!]
   amounts_contains: [BigDecimal!]
   amounts_contains_nocase: [BigDecimal!]
@@ -962,6 +986,8 @@ type PoolToken {
 }
 
 input PoolToken_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   address: String
   address_contains: String
   address_contains_nocase: String
@@ -1128,6 +1154,8 @@ enum PoolToken_orderBy {
 }
 
 input Pool_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   address: Bytes
   address_contains: Bytes
   address_in: [Bytes!]
@@ -1460,6 +1488,8 @@ type PriceRateProvider {
 }
 
 input PriceRateProvider_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   address: Bytes
   address_contains: Bytes
   address_in: [Bytes!]
@@ -2761,6 +2791,8 @@ type Swap {
 }
 
 input Swap_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   caller: Bytes
   caller_contains: Bytes
   caller_in: [Bytes!]
@@ -2940,6 +2972,8 @@ type TokenPrice {
 }
 
 input TokenPrice_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   amount: BigDecimal
   amount_gt: BigDecimal
   amount_gte: BigDecimal
@@ -3037,6 +3071,8 @@ type TokenSnapshot {
 }
 
 input TokenSnapshot_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   id: ID
   id_gt: ID
   id_gte: ID
@@ -3127,6 +3163,8 @@ enum TokenSnapshot_orderBy {
 }
 
 input Token_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   address: String
   address_contains: String
   address_contains_nocase: String
@@ -3297,6 +3335,8 @@ type TradePairSnapshot {
 }
 
 input TradePairSnapshot_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   id: ID
   id_gt: ID
   id_gte: ID
@@ -3360,6 +3400,8 @@ enum TradePairSnapshot_orderBy {
 }
 
 input TradePair_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   id: ID
   id_gt: ID
   id_gte: ID
@@ -3449,6 +3491,8 @@ type UserInternalBalance {
 }
 
 input UserInternalBalance_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   balance: BigDecimal
   balance_gt: BigDecimal
   balance_gte: BigDecimal
@@ -3501,6 +3545,8 @@ enum UserInternalBalance_orderBy {
 }
 
 input User_filter {
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
   id: ID
   id_gt: ID
   id_gte: ID
