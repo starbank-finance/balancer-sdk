@@ -10,12 +10,8 @@ export const BALANCER_NETWORK_CONFIG: Record<Network, BalancerNetworkConfig> = {
         chainId: Network.ASTAR, //592
         addresses: {
             contracts: {
-                // vault: '0x7Cd0C38850A3AaBb773311AAAADA3444D31DCE03',
-                // vault: '0xB05E81918C00D5a327c3AF5372b9C07528E9400E',
                 vault: '0x18df7884DEa0B24334800C8b05763112Eb592ce0',
                 multicall: '0xeB93D9EDDCb7476aF0c415E5a6d429454f85833A',
-                // multicall: '0xB97c1132477464d00CC220A825f8b1f1243f9356',
-                // multicall: '0x0b2D3DdDBE272AEd78877802F970C162ae263fca',
             },
             tokens: {
                 wrappedNativeAsset:
@@ -32,7 +28,8 @@ export const BALANCER_NETWORK_CONFIG: Record<Network, BalancerNetworkConfig> = {
                 // 'https://graph-node1.starbank.finance/subgraphs/name/starbank-finance/balancer-v2',
                 // 'http://graph.starbank.finance:9000/subgraphs/name/starbank-finance/balancer-v2',
                 // 'https://graph-node1.starbank.finance/subgraphs/name/starbank-finance/balancer-v2-new',
-                'https://graph-node1.starbank.finance/subgraphs/name/starbank-finance/balancer2',
+                // 'https://graph-node1.starbank.finance/subgraphs/name/starbank-finance/balancer2',
+                'https://graph.starbank-finance.com/subgraphs/name/starbank-finance/balancer2',
         },
         pools: {
             // bbausd: {
@@ -73,8 +70,11 @@ export const BALANCER_NETWORK_CONFIG: Record<Network, BalancerNetworkConfig> = {
         chainId: Network.POLYGON, //137
         addresses: {
             contracts: {
-                vault: '0xBA12222222228d8Ba445958a75a0704d566BF2C8',
-                multicall: '0xa1B2b503959aedD81512C37e9dce48164ec6a94d',
+                // vault: '0xBA12222222228d8Ba445958a75a0704d566BF2C8',
+                // multicall: '0xa1B2b503959aedD81512C37e9dce48164ec6a94d',
+                vault: '0x74080E1368278f780e706e1BCAec78f8c92772d6',
+                multicall: '0x2d5ee4921feA838Ac7C41dc08811645e49Adf5C3',
+                // multicall2: '0x275617327c958bD06b5D6b871E7f491D76113dd8',
             },
             tokens: {
                 wrappedNativeAsset:
@@ -83,7 +83,8 @@ export const BALANCER_NETWORK_CONFIG: Record<Network, BalancerNetworkConfig> = {
         },
         urls: {
             subgraph:
-                'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-polygon-v2',
+                // 'https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-polygon-v2',
+                'http://graph-mumbai-polygon.starbank.finance/subgraphs/name/starbank-finance/balancer2',
         },
         pools: {},
     },
