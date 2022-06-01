@@ -1,5 +1,5 @@
 import { Contract } from '@ethersproject/contracts';
-import { SOR, SubgraphPoolBase } from '@balancer-labs/sor';
+import { SOR, SubgraphPoolBase, SwapInfo, SwapTypes } from '@balancer-labs/sor';
 import {
     BatchSwap,
     QuerySimpleFlashSwapParameters,
@@ -7,28 +7,45 @@ import {
     QueryWithSorInput,
     QueryWithSorOutput,
     SimpleFlashSwapParameters,
+    FindRouteParameters,
+    BuildTransactionParameters,
+    SwapAttributes,
     SwapType,
 } from './types';
-import { queryBatchSwap, queryBatchSwapWithSor } from './queryBatchSwap';
+import {
+    queryBatchSwap,
+    queryBatchSwapWithSor,
+    getSorSwapInfo,
+} from './queryBatchSwap';
 import { balancerVault } from '@/lib/constants/config';
 import { getLimitsForSlippage } from './helpers';
 import vaultAbi from '@/lib/abi/Vault.json';
 import { BalancerSdkConfig } from '@/types';
+import { SwapInput } from './types';
 import { Sor } from '@/modules/sor/sor.module';
 import {
     convertSimpleFlashSwapToBatchSwapParameters,
     querySimpleFlashSwap,
 } from './flashSwap';
 import { Interface } from '@ethersproject/abi';
+import {
+    SingleSwapBuilder,
+    BatchSwapBuilder,
+} from '@/modules/swaps/swap_builder';
 
 export class Swaps {
-    private readonly sor: SOR;
+    readonly sor: SOR;
+    chainId: number;
 
+    // TODO: sorOrConfig - let's make it more predictable and always pass configuration explicitly
     constructor(sorOrConfig: SOR | BalancerSdkConfig) {
         if (sorOrConfig instanceof SOR) {
             this.sor = sorOrConfig;
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            this.chainId = (<any>this.sor.provider)['_network']['chainId'];
         } else {
             this.sor = new Sor(sorOrConfig);
+            this.chainId = sorOrConfig.network as number;
         }
     }
 
@@ -51,6 +68,98 @@ export class Swaps {
         );
 
         return limits.map((l) => l.toString());
+    }
+
+    /**
+     * Uses SOR to find optimal route for a trading pair and amount
+     *
+     * @param FindRouteParameters
+     * @param FindRouteParameters.tokenIn Address
+     * @param FindRouteParameters.tokenOut Address
+     * @param FindRouteParameters.amount BigNumber with a trade amount
+     * @param FindRouteParameters.gasPrice BigNumber current gas price
+     * @param FindRouteParameters.maxPools number of pool included in path
+     * @returns Best trade route information
+     */
+    async findRouteGivenIn({
+        tokenIn,
+        tokenOut,
+        amount,
+        gasPrice,
+        maxPools = 4,
+    }: FindRouteParameters): Promise<SwapInfo> {
+        return this.sor.getSwaps(
+            tokenIn,
+            tokenOut,
+            SwapTypes.SwapExactIn,
+            amount,
+            { gasPrice, maxPools }
+        );
+    }
+
+    /**
+     * Uses SOR to find optimal route for a trading pair and amount
+     *
+     * @param FindRouteParameters
+     * @param FindRouteParameters.tokenIn Address
+     * @param FindRouteParameters.tokenOut Address
+     * @param FindRouteParameters.amount BigNumber with a trade amount
+     * @param FindRouteParameters.gasPrice BigNumber current gas price
+     * @param FindRouteParameters.maxPools number of pool included in path
+     * @returns Best trade route information
+     */
+    async findRouteGivenOut({
+        tokenIn,
+        tokenOut,
+        amount,
+        gasPrice,
+        maxPools,
+    }: FindRouteParameters): Promise<SwapInfo> {
+        return this.sor.getSwaps(
+            tokenIn,
+            tokenOut,
+            SwapTypes.SwapExactIn,
+            amount,
+            { gasPrice, maxPools }
+        );
+    }
+
+    /**
+     * Uses SOR to find optimal route for a trading pair and amount
+     *
+     * @param BuildTransactionParameters
+     * @param BuildTransactionParameters.userAddress Address
+     * @param BuildTransactionParameters.swapInfo result of route finding
+     * @param BuildTransactionParameters.kind 0 - givenIn, 1 - givenOut
+     * @param BuildTransactionParameters.deadline BigNumber block timestamp
+     * @param BuildTransactionParameters.maxSlippage [bps], eg: 1 === 0.01%, 100 === 1%
+     * @returns transaction request ready to send with signer.sendTransaction
+     */
+    buildSwap({
+        userAddress,
+        swapInfo,
+        kind,
+        deadline,
+        maxSlippage,
+    }: BuildTransactionParameters): SwapAttributes {
+        if (!this.chainId) throw 'Missing network configuration';
+
+        // one vs batch (gas cost optimisation when using single swap)
+        const builder =
+            swapInfo.swaps.length > 1
+                ? new BatchSwapBuilder(swapInfo, kind, this.chainId)
+                : new SingleSwapBuilder(swapInfo, kind, this.chainId);
+        builder.setFunds(userAddress);
+        builder.setDeadline(deadline);
+        builder.setLimits(maxSlippage);
+
+        const to = builder.to();
+        const { functionName } = builder;
+        const attributes = builder.attributes();
+        const data = builder.data();
+        const value = builder.value(maxSlippage);
+
+        return { to, functionName, attributes, data, value };
     }
 
     /**
@@ -206,5 +315,24 @@ export class Swaps {
             ...params,
             vaultContract,
         });
+    }
+
+    /**
+     * Use SOR to get swapInfo for tokenIn<>tokenOut.
+     * @param {SwapInput} swapInput - Swap information used for querying using SOR.
+     * @param {string} swapInput.tokenIn - Addresse of asset in.
+     * @param {string} swapInput.tokenOut - Addresse of asset out.
+     * @param {SwapType} swapInput.swapType - Type of Swap, ExactIn/Out.
+     * @param {string} swapInput.amount - Amount used in swap.
+     * @returns {Promise<SwapInfo>} SOR swap info.
+     */
+    async getSorSwap(swapInput: SwapInput): Promise<SwapInfo> {
+        return await getSorSwapInfo(
+            swapInput.tokenIn,
+            swapInput.tokenOut,
+            swapInput.swapType,
+            swapInput.amount,
+            this.sor
+        );
     }
 }

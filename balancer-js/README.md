@@ -7,14 +7,63 @@ A JavaScript SDK which provides commonly used utilties for interacting with Bala
 ## Getting Started
 
 ```js
-import { BalancerSDK, ConfigSdk, Network } from '@balancer-labs/sdk';
+import { BalancerSDK, BalancerSdkConfig, Network } from '@balancer-labs/sdk';
 
-const config: ConfigSdk = {
+const config: BalancerSdkConfig = {
     network: Network.MAINNET,
     rpcUrl: `https://kovan.infura.io/v3/${process.env.INFURA}`,
 };
 const balancer = new BalancerSDK(config);
 ```
+
+In some examples we present a way to make end to end trades against mainnet state. To run them you will need to setup a localhost test node using tools like ganache, hardhat, anvil.
+
+Installation instructions for:
+
+* [Hardhat](https://hardhat.org/getting-started/#installation)
+
+  To start a forked node:
+  ```
+  npm run node
+  ```
+
+* [Anvil](https://github.com/foundry-rs/foundry/tree/master/anvil#installation) - use with caution, still experimental.
+  
+  To start a forked node:
+  ```
+  anvil -f FORKABLE_RPC_URL (optional pinned block: --fork-block-number XXX)
+  ```
+
+## Swaps Module
+
+Exposes complete functionality for token swapping. An example of using the module with data fetched from the subgraph:
+
+```js
+// Uses SOR to find optimal route for a trading pair and amount
+const route = balancer.swaps.findRouteGivenIn({
+    tokenIn,
+    tokenOut,
+    amount,
+    gasPrice,
+    maxPools,
+})
+
+// Prepares transaction attributes based on the route
+const transactionAttributes = balancer.swaps.buildSwap({
+    userAddress,
+    swapInfo: route,
+    kind: 0, // 0 - givenIn, 1 - givenOut
+    deadline,
+    maxSlippage,
+})
+
+// Extract parameters required for sendTransaction
+const { to, data, value } = transactionAttributes
+
+// Execution with ethers.js
+const transactionResponse = await signer.sendTransaction({ to, data, value })
+```
+
 
 ## SwapsService
 
@@ -164,6 +213,35 @@ swaps.querySimpleFlashSwap(batchSwap: {
 ```
 
 [Example](./examples/querySimpleFlashSwap.ts)
+
+## Pricing Module
+
+Exposes Spot Price functionality allowing user to query spot price for token pair.
+
+```js
+const pricing = new Pricing(sdkConfig);
+```
+
+### #getSpotPrice
+
+Calculates Spot Price for a token pair - for specific pool if ID otherwise finds most liquid path and uses this as reference SP.
+
+@param { string } tokenIn Token in address.
+@param { string } tokenOut Token out address.
+@param { string } poolId Optional - if specified this pool will be used for SP calculation.
+@param { SubgraphPoolBase[] } pools Optional - Pool data. Will be fetched via dataProvider if not supplied.
+@returns  { string } Spot price.
+
+```js
+async getSpotPrice(
+    tokenIn: string,
+    tokenOut: string,
+    poolId = '',
+    pools: SubgraphPoolBase[] = []
+): Promise<string>
+```
+
+[Example](./examples/spotPrice.ts)
 
 ## RelayerService
 
