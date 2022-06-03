@@ -1,6 +1,6 @@
 {
     "name": "@starbank/balancer-sdk",
-    "version": "0.0.16",
+    "version": "0.0.17",
 
     "description": "JavaScript SDK for interacting with the Balancer Protocol V2",
     "license": "GPL-3.0-only",
